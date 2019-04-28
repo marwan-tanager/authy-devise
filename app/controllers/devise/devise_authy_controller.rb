@@ -157,11 +157,7 @@ class Devise::DeviseAuthyController < DeviseController
   end
 
   def find_resource
-    @resource = send("current_#{resource_name}")
-
-    if @resource.nil?
-      @resource = resource_class.find_by_id(session["#{resource_name}_id"])
-    end
+    @resource ||= resource_class.find_by_id(session["#{resource_name}_id"])
   end
 
   def find_resource_and_require_password_checked
