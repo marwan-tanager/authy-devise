@@ -60,9 +60,7 @@ class Devise::DeviseAuthyController < DeviseController
 
     if @authy_user.ok?
       resource.authy_id = @authy_user.id
-      if resource.save
-        set_flash_message(:notice, :enabled)
-      else
+      unless resource.save
         set_flash_message(:error, :not_enabled)
         redirect_to after_authy_enabled_path_for(resource) and return
       end
